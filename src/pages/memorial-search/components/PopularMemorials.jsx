@@ -8,7 +8,7 @@ const PopularMemorials = ({ memorials = [], onViewAll }) => {
   const navigate = useNavigate();
 
   const handleMemorialClick = (memorial) => {
-    navigate('/memorial-page', { 
+    navigate(`/memorial/${memorial.id}`, {
       state: { 
         memorial,
         fromSearch: true 
