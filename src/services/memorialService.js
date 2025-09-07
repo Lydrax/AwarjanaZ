@@ -142,30 +142,44 @@ class MemorialService {
     }
   }
 
-  async getFeaturedMemorials() {
-    try {
-      const { data, error } = await supabase?.from('memorials')?.select(`
-          *,
-          memorial_images!left (
-            image_url,
-            is_primary
-          )
-        `)?.eq('privacy', 'public')?.eq('is_featured', true)?.order('view_count', { ascending: false })?.limit(6);
+async getFeaturedMemorials() {
+  try {
+    const { data, error } = await supabase
+      .from('memorials')
+      .select(`
+        *,
+        memorial_images!left (
+          image_url,
+          is_primary
+        )
+      `)
+      .eq('privacy', 'public')
+      .eq('is_featured', true)
+      .order('view_count', { ascending: false })
+      .limit(6);
 
-      if (error) throw error;
+    if (error) throw error;
 
-      // Process data to add main image
-      const processedData = data?.map(memorial => ({
-        ...memorial,
-        main_image: memorial?.memorial_images?.find(img => img?.is_primary)?.image_url || 
-                   memorial?.memorial_images?.[0]?.image_url || memorial?.main_image_url
-      }));
+    // Transform data to match component expectations
+    const processedData = data?.map(memorial => ({
+      id: memorial.id,
+      name: memorial.full_name,  // Transform to expected name
+      full_name: memorial.full_name, // Keep original too
+      birthDate: memorial.birth_date, // Transform
+      deathDate: memorial.death_date, // Transform
+      profileImage: memorial.main_image || 
+                   memorial.memorial_images?.find(img => img.is_primary)?.image_url ||
+                   memorial.memorial_images?.[0]?.image_url,
+      visitCount: memorial.view_count, // Transform
+      photoCount: memorial.memorial_images?.length || 0,
+      // Add other transformed fields as needed
+    }));
 
-      return { data: processedData, error: null };
-    } catch (error) {
-      return { data: null, error: { message: error?.message || 'Failed to fetch featured memorials' } };
-    }
+    return { data: processedData, error: null };
+  } catch (error) {
+    return { data: null, error: { message: error?.message || 'Failed to fetch featured memorials' } };
   }
+}
 
   async incrementViewCount(memorialId) {
     try {
