@@ -9,14 +9,14 @@ const MemorialCard = ({ memorial, onShare, className = '' }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const navigate = useNavigate();
 
-  const handleViewMemorial = () => {
-    navigate('/memorial-page', { 
-      state: { 
-        memorial,
-        fromSearch: true 
-      } 
-    });
-  };
+const handleViewMemorial = () => {
+  navigate(`/memorial/${memorial.id}`, { 
+    state: { 
+      memorial,
+      fromSearch: true 
+    } 
+  });
+};
 
   const handleShare = (e) => {
     e?.stopPropagation();
