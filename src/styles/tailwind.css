@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Core Colors */
+    --color-background: #FEFEFE; /* soft off-white */
+    --color-foreground: #1F2937; /* deep charcoal */
+    --color-border: rgba(107, 114, 128, 0.2); /* warm gray with opacity */
+    --color-input: #F9FAFB; /* subtle gray */
+    --color-ring: #6B7280; /* warm gray */
+    
+    /* Card Colors */
+    --color-card: #F9FAFB; /* subtle gray */
+    --color-card-foreground: #1F2937; /* deep charcoal */
+    
+    /* Popover Colors */
+    --color-popover: #FEFEFE; /* soft off-white */
+    --color-popover-foreground: #1F2937; /* deep charcoal */
+    
+    /* Muted Colors */
+    --color-muted: #F9FAFB; /* subtle gray */
+    --color-muted-foreground: #6B7280; /* warm gray */
+    
+    /* Primary Colors */
+    --color-primary: #6B7280; /* warm gray */
+    --color-primary-foreground: #FEFEFE; /* soft off-white */
+    
+    /* Secondary Colors */
+    --color-secondary: #9CA3AF; /* lighter gray */
+    --color-secondary-foreground: #1F2937; /* deep charcoal */
+    
+    /* Accent Colors */
+    --color-accent: #8B5A3C; /* warm brown */
+    --color-accent-foreground: #FEFEFE; /* soft off-white */
+    
+    /* Success Colors */
+    --color-success: #059669; /* gentle green */
+    --color-success-foreground: #FEFEFE; /* soft off-white */
+    
+    /* Warning Colors */
+    --color-warning: #D97706; /* warm amber */
+    --color-warning-foreground: #FEFEFE; /* soft off-white */
+    
+    /* Error/Destructive Colors */
+    --color-error: #DC2626; /* muted red */
+    --color-error-foreground: #FEFEFE; /* soft off-white */
+    --color-destructive: #DC2626; /* muted red */
+    --color-destructive-foreground: #FEFEFE; /* soft off-white */
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  /* Soft Depth Cards */
+  .memorial-card {
+    @apply bg-card text-card-foreground rounded-lg shadow-lg;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Progressive Loading Animation */
+  .memorial-skeleton {
+    @apply bg-muted animate-pulse;
+    animation: memorial-pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes memorial-pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.6; }
+  }
+
+  /* Contextual Micro-Interactions */
+  .memorial-interactive {
+    @apply transition-all duration-200 ease-out;
+  }
+
+  .memorial-interactive:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Respectful Form Validation */
+  .memorial-form-error {
+    @apply text-error text-sm mt-1 opacity-0 transition-opacity duration-300;
+  }
+
+  .memorial-form-error.show {
+    @apply opacity-100;
+  }
+
+  /* Memorial Gallery Lightbox */
+  .memorial-lightbox-backdrop {
+    @apply fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50;
+  }
+
+  .memorial-lightbox-content {
+    @apply transform transition-transform duration-300 ease-out;
+  }
+
+  /* Breadcrumb Navigation */
+  .memorial-breadcrumb {
+    @apply flex items-center space-x-2 text-muted-foreground text-sm;
+  }
+
+  .memorial-breadcrumb-separator {
+    @apply text-muted-foreground opacity-50;
+  }
+
+  .memorial-breadcrumb-link {
+    @apply text-primary hover:text-accent transition-colors duration-200;
+  }
+}
+
+@layer utilities {
+  /* Custom Shadow Utilities */
+  .shadow-memorial-soft {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  .shadow-memorial-medium {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .shadow-memorial-strong {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Typography Utilities */
+  .text-memorial-primary {
+    color: var(--color-foreground);
+  }
+
+  .text-memorial-secondary {
+    color: var(--color-muted-foreground);
+  }
+
+  /* Animation Utilities */
+  .animate-memorial-fade-in {
+    animation: memorial-fade-in 300ms ease-out;
+  }
+
+  @keyframes memorial-fade-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-memorial-scale-in {
+    animation: memorial-scale-in 200ms ease-out;
+  }
+
+  @keyframes memorial-scale-in {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+}
