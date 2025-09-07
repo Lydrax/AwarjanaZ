@@ -18,8 +18,7 @@ const Routes = () => {
           <RouterRoutes>
             {/* Define your route here */}
             <Route path="/" element={<MemorialSearch />} />
-            <Route path="/memorial-page" element={<MemorialPage />} />
-            <Route path="/memorial-page/:id" element={<MemorialPage />} />
+            <Route path="/memorial/:id" element={<MemorialPage />} /> {/* ← Changed! */}
             <Route path="/create-memorial" element={<CreateMemorial />} />
             <Route path="/memorial-dashboard" element={<MemorialDashboard />} />
             <Route path="/memorial-search" element={<MemorialSearch />} />
